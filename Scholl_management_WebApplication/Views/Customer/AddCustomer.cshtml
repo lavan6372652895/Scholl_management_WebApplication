@@ -1,0 +1,131 @@
+﻿@model Scholl_management_WebApplicationmodel.Model.CustomerModel
+@{
+    ViewBag.Title = "AddCustomer";
+}
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.customer_Name)
+        @Html.TextBoxFor(x => x.customer_Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.customer_Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Email)
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+        @TempData["Emai"]
+    </div>
+    <div class="from">
+       
+        @Html.LabelFor(x => x.Gender)
+        @Html.RadioButtonFor(x => x.Gender, "male" )
+        Male
+        @Html.RadioButtonFor(x => x.Gender, "female")
+        Female
+
+
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.password)
+        @Html.TextBoxFor(x => x.password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Country)
+        @Html.DropDownListFor(x => x.Country,new SelectList(ViewBag.Country,"Id", "CountryName"),"-selectone--", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Country, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.States)
+        @Html.DropDownListFor(x => x.States, new SelectList(""), new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.States, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.city)
+        @Html.DropDownListFor(x => x.city,new SelectList(""), new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.city, "", new { @class = "text-danger" })
+    </div>
+    <button class="btn-outline-primary" type="submit">Submit</button>
+
+}
+
+<h2>AddCustomer</h2>
+<table class="table" id="Customer">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>customerName</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Country</th>
+            <th>States</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+
+</table>
+<h1>@ViewBag.error</h1>
+<script>
+
+
+    $(document).ready(function () {
+        $.ajax({
+            method: "Get",
+            url: "/Customer/Getcustomer",
+            success: function (data) {
+                var data = JSON.parse(data);
+                data.forEach((x) => {
+                    var row = "<tr>"
+                        + "<td>" + x.customer_id + "</td>"
+                        + "<td>" + x.customer_Name + "</td>"
+                        + "<td>" + x.Gender + "</td>"
+                        + "<td>" + x.Email + "</td>"
+                        + "<td>" + x.Country + "</td>"
+                        + "<td>" + x.States + "</td>"
+                        + "<td>" + x.city + "</td>"
+                        + "</tr>";
+                    $("#Customer tbody").append(row);
+                });
+
+            }
+
+        })
+        
+        $("#Country").change(function () {
+            var countryid = $(this).val();
+            $("#States").empty();
+            $.ajax({
+                method: "Post",
+                url: "/Customer/GetStates/id=countryid",
+                data: { id: countryid },
+                success: function (data) {
+                    $.each(data, function (index, row) {
+                        $("#States").append("<option value='" + row.Id + "'>" + row.StateName + "</option>");
+                    });
+                }
+            });
+        });
+        $("#States").change(function () {
+            var stateid = $(this).val();
+            $("#city").empty();
+            $.ajax({
+                method: "Post",
+                url: "/Customer/GetCity/id=stateid",
+                data: { id: stateid },
+                success: function (data) {
+                    $.each(data, function (index, row) {
+                        console.log(row.CityName)
+                        $("#city").append("<option value ='" + row.Id + "'>" + row.CityName + "</option>");
+                    });
+                }
+
+            });
+
+        });
+
+    });
+</script>
+

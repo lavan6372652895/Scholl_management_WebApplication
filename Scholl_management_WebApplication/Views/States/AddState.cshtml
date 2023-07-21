@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "AddState";
+}
+
+<h2>AddState</h2>
+
+<table class="table" id="tab">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>StateName</th>
+            <th>CountryName</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            method: "Get",
+            url: "/States/GetStatelist",
+            success: function (data) {
+                var data = JSON.parse(data);
+                data.forEach((x) => {
+                    var row = "<tr>"
+                        + "<td>" + x.Id + "</td>"
+                        + "<td>" + x.StateName + "</td>"
+                        + "<td>" + x.CountryName + "</td>"
+                        + "<tr>";
+                    console.log(x);
+                    $("#tab").append(row)
+                });
+            }
+
+        });
+    })
+</script>
+

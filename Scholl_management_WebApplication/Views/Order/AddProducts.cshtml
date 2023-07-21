@@ -1,0 +1,104 @@
+﻿@model Scholl_management_WebApplicationmodel.Model.Ordermodel
+@{ Layout = "~/Views/Shared/_dashboard.cshtml";}
+
+
+@{
+    ViewBag.Title = "AddProducts";
+}
+
+<h2>AddProducts</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Ordersmodel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ProductName, new SelectList(ViewBag.product, "Id", "productName"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Qtn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Qtn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Qtn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+@{
+    int itemQtn = 0;
+    decimal itemPrice = 0;
+    decimal SGSC = 0;
+    decimal Total = 0;
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<table class="table">
+    <tr>
+        <td>OrderId</td>
+        <td>ProductId</td>
+        <td>Qtn</td>
+        <td>cost</td>
+        <td>TotalAmount</td>
+        <td>Action</td>
+    </tr>
+
+    @foreach (var e in ViewBag.orders)
+    {
+        <tr>
+            <td>@e.orderId</td>
+            <td>@e.ProductName</td>
+            <td>@e.Qtn</td>
+            <td>@e.cost</td>
+            <td>@e.TotalAmount</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = e.orderId })
+                @Html.ActionLink("Details", "Details", new { id = e.orderId })
+                @Html.ActionLink("Delete", "Delete", new { id = e.orderId })
+            </td>
+        </tr>
+        itemQtn += e.Qtn;
+        itemPrice += e.TotalAmount;
+        SGSC = itemPrice * 5 / 100;
+        Total = itemPrice + SGSC;
+
+
+    }
+
+
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Total Items : @itemQtn</td>
+        <td></td>
+        <td>Total_Cost: @itemPrice</td>
+    </tr>
+</table>
+<div class="price" style="text-align-last: center;">
+    <h5>SGSC: @SGSC</h5>
+    <h5>CGSC: @SGSC</h5>
+    <h5>Total: @Total</h5>
+    <h5>@Html.Label("select coupen")</h5>
+    @Html.DropDownListFor(x => x.Coupencode ,new SelectList(ViewBag.Addcoupen,"id", "Coupencode"),"select-one",new { @classs ="form-control"})
+</div>
+
+
+

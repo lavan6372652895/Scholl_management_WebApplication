@@ -1,0 +1,688 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="lavan_386Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adduser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="BranchName" Type="int" />
+        </EntityType>
+        <EntityType Name="Answers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questionId" Type="int" />
+          <Property Name="title" Type="varchar" MaxLength="500" />
+          <Property Name="isactive" Type="bit" />
+          <Property Name="isCorrect" Type="bit" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="100" />
+          <Property Name="CountryName" Type="int" />
+          <Property Name="StateName" Type="int" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="coupen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Coupencode" Type="varchar" MaxLength="100" />
+          <Property Name="Percentages" Type="int" />
+          <Property Name="Expirydate" Type="date" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+          <Property Name="Country" Type="int" />
+          <Property Name="States" Type="int" />
+          <Property Name="city" Type="int" />
+          <Property Name="Gender" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="int" />
+          <Property Name="Qtn" Type="int" />
+          <Property Name="cost" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="TotalAmount" Type="decimal" Precision="10" Scale="3" />
+        </EntityType>
+        <EntityType Name="Producttable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productName" Type="varchar" MaxLength="100" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="3" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="500" />
+          <Property Name="isactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="int" />
+          <Property Name="StateName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Adduser__BranchN__3A81B327">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+          <End Role="Adduser" Type="Self.Adduser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adduser">
+              <PropertyRef Name="BranchName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Answers__questio__7D439ABD">
+          <End Role="Answers" Type="Self.Answers" Multiplicity="0..1" />
+          <End Role="Answers1" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answers1">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Answers__questio__7E37BEF6">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__City__CountryNam__4222D4EF">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="CountryName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__City__StateName__4316F928">
+          <End Role="States" Type="Self.States" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ProductN__5EBF139D">
+          <End Role="Producttable" Type="Self.Producttable" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producttable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__States__CountryN__3F466844">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="States" Type="Self.States" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="States">
+              <PropertyRef Name="CountryName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddEditcity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="cityname" Type="varchar" Mode="In" />
+          <Parameter Name="stateid" Type="int" Mode="In" />
+          <Parameter Name="country" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AddProducttable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductName" Type="int" Mode="In" />
+          <Parameter Name="qnt" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CountryDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AddEditCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="country_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Sp_Statedele" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Statedetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="updateorders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="ProductName" Type="int" Mode="In" />
+          <Parameter Name="qnt" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="lavan_386ModelStoreContainer">
+          <EntitySet Name="Adduser" EntityType="Self.Adduser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="coupen" EntityType="Self.coupen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producttable" EntityType="Self.Producttable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Adduser__BranchN__3A81B327" Association="Self.FK__Adduser__BranchN__3A81B327">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Adduser" EntitySet="Adduser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Answers__questio__7D439ABD" Association="Self.FK__Answers__questio__7D439ABD">
+            <End Role="Answers" EntitySet="Answers" />
+            <End Role="Answers1" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Answers__questio__7E37BEF6" Association="Self.FK__Answers__questio__7E37BEF6">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__City__CountryNam__4222D4EF" Association="Self.FK__City__CountryNam__4222D4EF">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK__City__StateName__4316F928" Association="Self.FK__City__StateName__4316F928">
+            <End Role="States" EntitySet="States" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ProductN__5EBF139D" Association="Self.FK__Orders__ProductN__5EBF139D">
+            <End Role="Producttable" EntitySet="Producttable" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__States__CountryN__3F466844" Association="Self.FK__States__CountryN__3F466844">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="States" EntitySet="States" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="lavan_386Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adduser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BranchName" Type="Int32" />
+          <NavigationProperty Name="Branch" Relationship="lavan_386Model.FK__Adduser__BranchN__3A81B327" FromRole="Adduser" ToRole="Branch" />
+        </EntityType>
+        <EntityContainer Name="lavan_386Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adduser" EntityType="Self.Adduser" />
+          <EntitySet Name="Branch" EntityType="lavan_386Model.Branch" />
+          <AssociationSet Name="FK__Adduser__BranchN__3A81B327" Association="lavan_386Model.FK__Adduser__BranchN__3A81B327">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Adduser" EntitySet="Adduser" />
+          </AssociationSet>
+          <EntitySet Name="City" EntityType="lavan_386Model.City" />
+          <EntitySet Name="Country" EntityType="lavan_386Model.Country" />
+          <EntitySet Name="States" EntityType="lavan_386Model.States" />
+          <AssociationSet Name="FK__City__CountryNam__4222D4EF" Association="lavan_386Model.FK__City__CountryNam__4222D4EF">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK__City__StateName__4316F928" Association="lavan_386Model.FK__City__StateName__4316F928">
+            <End Role="States" EntitySet="States" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK__States__CountryN__3F466844" Association="lavan_386Model.FK__States__CountryN__3F466844">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="States" EntitySet="States" />
+          </AssociationSet>
+          <FunctionImport Name="CountryDelete">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_Statedele">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddEditCountry">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="country_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Statedetails" ReturnType="Collection(lavan_386Model.Statedetails_Result)" />
+          <EntitySet Name="Orders" EntityType="lavan_386Model.Orders" />
+          <EntitySet Name="Producttable" EntityType="lavan_386Model.Producttable" />
+          <AssociationSet Name="FK__Orders__ProductN__5EBF139D" Association="lavan_386Model.FK__Orders__ProductN__5EBF139D">
+            <End Role="Producttable" EntitySet="Producttable" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <FunctionImport Name="AddProducttable">
+            <Parameter Name="ProductName" Mode="In" Type="Int32" />
+            <Parameter Name="qnt" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="updateorders">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="ProductName" Mode="In" Type="Int32" />
+            <Parameter Name="qnt" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="coupen" EntityType="lavan_386Model.coupen" />
+          <FunctionImport Name="AddEditcity">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="cityname" Mode="In" Type="String" />
+            <Parameter Name="stateid" Mode="In" Type="Int32" />
+            <Parameter Name="country" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="customer" EntityType="lavan_386Model.customer" />
+          <EntitySet Name="Answers" EntityType="lavan_386Model.Answers" />
+          <EntitySet Name="Questions" EntityType="lavan_386Model.Questions" />
+          <AssociationSet Name="FK__Answers__questio__7D439ABD" Association="lavan_386Model.FK__Answers__questio__7D439ABD">
+            <End Role="Answers" EntitySet="Answers" />
+            <End Role="Answers1" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Answers__questio__7E37BEF6" Association="lavan_386Model.FK__Answers__questio__7E37BEF6">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Adduser" Relationship="lavan_386Model.FK__Adduser__BranchN__3A81B327" FromRole="Branch" ToRole="Adduser" />
+        </EntityType>
+        <Association Name="FK__Adduser__BranchN__3A81B327">
+          <End Type="lavan_386Model.Branch" Role="Branch" Multiplicity="0..1" />
+          <End Type="lavan_386Model.Adduser" Role="Adduser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adduser">
+              <PropertyRef Name="BranchName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CountryName" Type="Int32" />
+          <Property Name="StateName" Type="Int32" />
+          <NavigationProperty Name="Country" Relationship="lavan_386Model.FK__City__CountryNam__4222D4EF" FromRole="City" ToRole="Country" />
+          <NavigationProperty Name="States" Relationship="lavan_386Model.FK__City__StateName__4316F928" FromRole="City" ToRole="States" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="City" Relationship="lavan_386Model.FK__City__CountryNam__4222D4EF" FromRole="Country" ToRole="City" />
+          <NavigationProperty Name="States" Relationship="lavan_386Model.FK__States__CountryN__3F466844" FromRole="Country" ToRole="States" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="Int32" />
+          <Property Name="StateName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="City" Relationship="lavan_386Model.FK__City__StateName__4316F928" FromRole="States" ToRole="City" />
+          <NavigationProperty Name="Country" Relationship="lavan_386Model.FK__States__CountryN__3F466844" FromRole="States" ToRole="Country" />
+        </EntityType>
+        <Association Name="FK__City__CountryNam__4222D4EF">
+          <End Type="lavan_386Model.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="lavan_386Model.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="CountryName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__City__StateName__4316F928">
+          <End Type="lavan_386Model.States" Role="States" Multiplicity="0..1" />
+          <End Type="lavan_386Model.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__States__CountryN__3F466844">
+          <End Type="lavan_386Model.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="lavan_386Model.States" Role="States" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="States">
+              <PropertyRef Name="CountryName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Statedetails_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CountryName" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="Int32" />
+          <Property Name="Qtn" Type="Int32" />
+          <Property Name="cost" Type="Decimal" Precision="10" Scale="3" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="10" Scale="3" />
+          <NavigationProperty Name="Producttable" Relationship="lavan_386Model.FK__Orders__ProductN__5EBF139D" FromRole="Orders" ToRole="Producttable" />
+        </EntityType>
+        <EntityType Name="Producttable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="3" />
+          <NavigationProperty Name="Orders" Relationship="lavan_386Model.FK__Orders__ProductN__5EBF139D" FromRole="Producttable" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK__Orders__ProductN__5EBF139D">
+          <End Type="lavan_386Model.Producttable" Role="Producttable" Multiplicity="0..1" />
+          <End Type="lavan_386Model.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producttable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="coupen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Coupencode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Percentages" Type="Int32" />
+          <Property Name="Expirydate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="Int32" />
+          <Property Name="States" Type="Int32" />
+          <Property Name="city" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Answers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questionId" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="isactive" Type="Boolean" />
+          <Property Name="isCorrect" Type="Boolean" />
+          <NavigationProperty Name="Answers1" Relationship="lavan_386Model.FK__Answers__questio__7D439ABD" FromRole="Answers" ToRole="Answers1" />
+          <NavigationProperty Name="Answers2" Relationship="lavan_386Model.FK__Answers__questio__7D439ABD" FromRole="Answers1" ToRole="Answers" />
+          <NavigationProperty Name="Questions" Relationship="lavan_386Model.FK__Answers__questio__7E37BEF6" FromRole="Answers" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="isactive" Type="Boolean" />
+          <NavigationProperty Name="Answers" Relationship="lavan_386Model.FK__Answers__questio__7E37BEF6" FromRole="Questions" ToRole="Answers" />
+        </EntityType>
+        <Association Name="FK__Answers__questio__7D439ABD">
+          <End Type="lavan_386Model.Answers" Role="Answers" Multiplicity="0..1" />
+          <End Type="lavan_386Model.Answers" Role="Answers1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answers1">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Answers__questio__7E37BEF6">
+          <End Type="lavan_386Model.Questions" Role="Questions" Multiplicity="0..1" />
+          <End Type="lavan_386Model.Answers" Role="Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="lavan_386ModelStoreContainer" CdmEntityContainer="lavan_386Entities1">
+          <EntitySetMapping Name="Adduser">
+            <EntityTypeMapping TypeName="lavan_386Model.Adduser">
+              <MappingFragment StoreEntitySet="Adduser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branch">
+            <EntityTypeMapping TypeName="lavan_386Model.Branch">
+              <MappingFragment StoreEntitySet="Branch">
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="lavan_386Model.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Country">
+            <EntityTypeMapping TypeName="lavan_386Model.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="lavan_386Model.States">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CountryDelete" FunctionName="lavan_386Model.Store.CountryDelete" />
+          <FunctionImportMapping FunctionImportName="Sp_Statedele" FunctionName="lavan_386Model.Store.Sp_Statedele" />
+          <FunctionImportMapping FunctionImportName="sp_AddEditCountry" FunctionName="lavan_386Model.Store.sp_AddEditCountry" />
+          <FunctionImportMapping FunctionImportName="Statedetails" FunctionName="lavan_386Model.Store.Statedetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="lavan_386Model.Statedetails_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="lavan_386Model.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="Qtn" ColumnName="Qtn" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producttable">
+            <EntityTypeMapping TypeName="lavan_386Model.Producttable">
+              <MappingFragment StoreEntitySet="Producttable">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddProducttable" FunctionName="lavan_386Model.Store.AddProducttable" />
+          <FunctionImportMapping FunctionImportName="updateorders" FunctionName="lavan_386Model.Store.updateorders" />
+          <EntitySetMapping Name="coupen">
+            <EntityTypeMapping TypeName="lavan_386Model.coupen">
+              <MappingFragment StoreEntitySet="coupen">
+                <ScalarProperty Name="Expirydate" ColumnName="Expirydate" />
+                <ScalarProperty Name="Percentages" ColumnName="Percentages" />
+                <ScalarProperty Name="Coupencode" ColumnName="Coupencode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddEditcity" FunctionName="lavan_386Model.Store.AddEditcity" />
+          <EntitySetMapping Name="customer">
+            <EntityTypeMapping TypeName="lavan_386Model.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="States" ColumnName="States" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="customer_Name" ColumnName="customer_Name" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="lavan_386Model.Answers">
+              <MappingFragment StoreEntitySet="Answers">
+                <ScalarProperty Name="isCorrect" ColumnName="isCorrect" />
+                <ScalarProperty Name="isactive" ColumnName="isactive" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="questionId" ColumnName="questionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="lavan_386Model.Questions">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="isactive" ColumnName="isactive" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,93 @@
+﻿@model Scholl_management_WebApplicationmodel.Model.CityModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(x => x.CountryName);
+            @Html.DropDownListFor(x => x.CountryName, new SelectList(ViewBag.countrylist, "Id", "CountryName"), "select-one", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.CountryName, "", new { @class = "text-danger" })
+        
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.StateName);
+            @Html.DropDownListFor(x => x.StateName, new SelectList(""), "select-one", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.StateName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.CityName);
+            @Html.TextBoxFor(x => x.CityName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.CityName, "", new { @class = "text-danger" })
+        </div>
+        <button class="btn-primary" type="submit">Submit</button>
+    }
+</div>
+
+<h2>Index</h2>
+<div class="container">
+    <table class="table" id="Citytable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CityName</th>
+                <th>StateName</th>
+                <th>CountryName</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#CountryName").change(function () {
+            var countryId = $(this).val();
+            $("#StateName").empty();
+            $.ajax({
+                method: "Post",
+                url: "/City/GetState/id=countryId",
+                data: { id: countryId },
+                success: function (data) {
+                    $.each(data, function (index, row) {
+                        $("#StateName").append("<option value='" + row.Id + "'>" + row.StateName + "</option>");
+                        console.log(row.Id);
+                    });
+                },
+            });
+        });
+        $.ajax({
+            method: "GET",
+            url: "/City/GetCity",
+            success: function (res) {
+                var data = JSON.parse(res);
+                var tableBody = $('#Citytable tbody');
+                tableBody.empty();
+                $.each(data, function (index,val) {
+                    var row = `<tr>
+                    <td>${val.Id}</td>
+                    <td>${val.CityName}</td>
+                    <td>${val.CountryName}</td>
+                    <td>${val.StateName}</td>
+                   <td><button class="btn-warning" onclick="myEdit(${val.Id})" id ="btt">MyEdit</td>
+                </tr>`;
+                    tableBody.append(row);
+                });
+
+            }
+
+        });
+      
+
+
+
+
+    });
+</script>
+
+

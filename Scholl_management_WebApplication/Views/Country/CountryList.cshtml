@@ -1,0 +1,48 @@
+﻿@model IPagedList<Scholl_management_WebApplicationmodel.Dbconnection.Country>
+
+@{
+    Layout =
+"~/Views/Shared/_dashboard.cshtml";
+}
+@{
+    ViewBag.Title = "CountryList";
+}
+@using PagedList;
+@using PagedList.Mvc;
+
+<h2>CountryList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddCountry")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CountryName)
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager( Model, id => Url.Action("CountryList", "Country", new { id }))
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c0fc71d42e3849a09400d5607b4e050c" Name="Diagram1">
+        <EntityTypeShape EntityType="lavan_386Model.Adduser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lavan_386Model.Branch" Width="1.5" PointX="0.75" PointY="4.125" />
+        <AssociationConnector Association="lavan_386Model.FK__Adduser__BranchN__3A81B327" />
+        <EntityTypeShape EntityType="lavan_386Model.City" Width="1.5" PointX="7.875" PointY="4" />
+        <EntityTypeShape EntityType="lavan_386Model.Country" Width="1.5" PointX="4.125" PointY="1.25" />
+        <EntityTypeShape EntityType="lavan_386Model.States" Width="1.5" PointX="5.625" PointY="5.5" />
+        <AssociationConnector Association="lavan_386Model.FK__City__CountryNam__4222D4EF" />
+        <AssociationConnector Association="lavan_386Model.FK__City__StateName__4316F928" />
+        <AssociationConnector Association="lavan_386Model.FK__States__CountryN__3F466844" />
+        <EntityTypeShape EntityType="lavan_386Model.Orders" Width="1.5" PointX="3" PointY="8.875" />
+        <EntityTypeShape EntityType="lavan_386Model.Producttable" Width="1.5" PointX="0.75" PointY="9.125" />
+        <AssociationConnector Association="lavan_386Model.FK__Orders__ProductN__5EBF139D" />
+        <EntityTypeShape EntityType="lavan_386Model.coupen" Width="1.5" PointX="6.375" PointY="0.75" />
+        <EntityTypeShape EntityType="lavan_386Model.customer" Width="1.5" PointX="8.625" PointY="7" />
+        <EntityTypeShape EntityType="lavan_386Model.Answers" Width="1.5" PointX="12.625" PointY="1" />
+        <EntityTypeShape EntityType="lavan_386Model.Questions" Width="1.5" PointX="10.375" PointY="1.375" />
+        <AssociationConnector Association="lavan_386Model.FK__Answers__questio__7D439ABD" />
+        <AssociationConnector Association="lavan_386Model.FK__Answers__questio__7E37BEF6" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
